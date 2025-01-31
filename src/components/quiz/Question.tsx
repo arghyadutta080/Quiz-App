@@ -16,6 +16,7 @@ import {
 import { CheckCircle2, XCircle } from "lucide-react";
 import type { Question as QuestionType } from "@/lib/types/quiz";
 import { useQuizStore } from "@/lib/stores/quiz-store";
+import { formatAPIText, formatterStyles } from "@/utils/functions/formatText";
 
 const Question = () => {
   const {
@@ -39,6 +40,8 @@ const Question = () => {
 
   const selectedAnswer = answers[question?.id];
   const hasAnswered = selectedAnswer !== undefined && selectedAnswer !== -1;
+
+  const { html, success, error } = formatAPIText(question?.detailed_solution);
 
   return (
     <Card className="max-w-2xl mx-auto">
@@ -94,7 +97,21 @@ const Question = () => {
         {showSolution && (
           <Alert>
             <AlertDescription className="whitespace-pre-wrap">
-              {question.detailed_solution}
+              <>
+                {success ? (
+                  <>
+                    <style>{formatterStyles}</style>
+                    <div
+                      dangerouslySetInnerHTML={{
+                        __html: html,
+                      }}
+                      className={formatterStyles}
+                    />
+                  </>
+                ) : (
+                  <div>{error}</div>
+                )}
+              </>
             </AlertDescription>
           </Alert>
         )}

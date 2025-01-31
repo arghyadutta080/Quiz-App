@@ -3,6 +3,8 @@ import { Question } from "../types/quiz"
 
 interface QuizState {
     currentQuestion: number
+    correctAnsMarks: number
+    negativeMarks: number
     score: number
     answers: Record<number, number>
     questions: Question[]
@@ -10,7 +12,8 @@ interface QuizState {
     showSolution: boolean
     isStarted: boolean
     isComplete: boolean
-    setQuestions: (questions: Question[]) => void
+    allowSuffle: boolean
+    setQuestions: (questions: Question[], correctPoints: number, negativePoints: number, suffling: boolean) => void
     setAnswer: (questionId: number, answerId: number) => void
     startQuiz: () => void
     nextQuestion: () => void
@@ -21,6 +24,8 @@ interface QuizState {
 
 export const useQuizStore = create<QuizState>((set, get) => ({
     currentQuestion: 0,
+    correctAnsMarks: 1,
+    negativeMarks: 0,
     score: 0,
     answers: {},
     showSolution: false,
@@ -28,14 +33,22 @@ export const useQuizStore = create<QuizState>((set, get) => ({
     isComplete: false,
     questions: [],
     numberOfQuestions: 0,
+    allowSuffle: true,
 
-    setQuestions: (questionSet: Question[]) => {
+    setQuestions: (questionSet: Question[], correctPoints: number, negativePoints: number, suffling: boolean) => {
         const state = get()
-        // console.log(state.questions)
         if (state.questions.length != questionSet.length) {
+            set({ allowSuffle: suffling })
+            
+            const finalQuestions = state.allowSuffle 
+                ? [...questionSet].sort(() => Math.random() - 0.5)  // suffling the questions
+                : questionSet;
+                
             set({
-                questions: questionSet,
-                numberOfQuestions: questionSet.length
+                questions: finalQuestions,
+                numberOfQuestions: questionSet.length,
+                correctAnsMarks: correctPoints,
+                negativeMarks: negativePoints,
             })
         }
     },
@@ -43,7 +56,7 @@ export const useQuizStore = create<QuizState>((set, get) => ({
     setAnswer: (questionId, answerId) =>
         set((state) => ({
             answers: { ...state.answers, [questionId]: answerId },
-            score: calculateScore(state.answers, state.questions, questionId, answerId),
+            score: calculateScore(state.answers, state.questions, questionId, answerId, state.correctAnsMarks, state.negativeMarks),
         })),
 
     startQuiz: () => set({ isStarted: true, currentQuestion: 0 }),
@@ -76,11 +89,11 @@ export const useQuizStore = create<QuizState>((set, get) => ({
     toggleSolution: () => set((state) => ({ showSolution: !state.showSolution })),
 }))
 
-const calculateScore = (answers: Record<number, number>, questions: Question[], questionId: number, answerId: number) => {
+const calculateScore = (answers: Record<number, number>, questions: Question[], questionId: number, answerId: number, correctAnsMarks: number, negativeMarks: number) => {
     const updatedAnswers = { ...answers, [questionId]: answerId }
     return Object.entries(updatedAnswers).reduce((score, [qId, aId]) => {
         const question = questions.find((q) => q.id === Number.parseInt(qId))
         const isCorrect = question?.options.find((o) => o.id === aId)?.is_correct
-        return score + (isCorrect ? 1 : 0)
+        return score + (isCorrect ? correctAnsMarks : - negativeMarks)
     }, 0)
 }
