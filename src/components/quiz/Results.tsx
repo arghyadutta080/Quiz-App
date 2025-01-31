@@ -1,17 +1,16 @@
-import { Button } from "@/components/ui/button";
 import {
+  Button,
   Card,
   CardContent,
   CardFooter,
   CardHeader,
   CardTitle,
-} from "@/components/ui/card";
+} from "@/components/ui";
 import { useQuizStore } from "@/lib/stores/quiz-store";
 import { Share2 } from "lucide-react";
 
-
 const Results = () => {
-  const { score, resetQuiz } = useQuizStore();
+  const { score, numberOfQuestions, resetQuiz } = useQuizStore();
 
   return (
     <Card className="max-w-md mx-auto text-center">
@@ -30,7 +29,7 @@ const Results = () => {
       </CardHeader>
       <CardContent className="grid grid-cols-3 gap-4">
         <div className="bg-purple-100 rounded-lg p-4">
-          <div className="text-2xl font-bold text-purple-600">10%</div>
+          <div className="text-2xl font-bold text-purple-600">{(score * 100)/numberOfQuestions}%</div>
           <div className="text-sm text-purple-600">Accuracy</div>
         </div>
         <div className="bg-teal-100 rounded-lg p-4">
@@ -56,6 +55,6 @@ const Results = () => {
       </CardFooter>
     </Card>
   );
-}
+};
 
 export default Results;

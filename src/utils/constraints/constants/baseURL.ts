@@ -1,0 +1,1 @@
+export const baseURI = process.env.NEXT_PUBLIC_SERVER_API_URI

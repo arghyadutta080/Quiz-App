@@ -1,13 +1,12 @@
 "use client";
 
-// import QuizWrapper from "@/components/common/QuizWrapper";
-import { CountDown, Question, Results, StartScreen } from "@/components/quiz";
+import React, { useEffect, useState } from "react";
 import { useQuizStore } from "@/lib/stores/quiz-store";
-import { questions } from "@/utils/constraints/constants/questions";
-import { useEffect, useState } from "react";
+import { CountDown, Question, Results, StartScreen } from "../quiz";
 
-export default function Home() {
-  const { isStarted, isComplete, currentQuestion, nextQuestion } = useQuizStore();
+const QuizScreenNavigator = () => {
+  const { isStarted, isComplete, currentQuestion, nextQuestion } =
+    useQuizStore();
   const [showCountdown, setShowCountdown] = useState(false);
 
   useEffect(() => {
@@ -36,12 +35,11 @@ export default function Home() {
   if (currentQuestion === 0) {
     return null; // This should not happen, but just in case
   }
-
   return (
-    // <QuizWrapper>
     <div className="container mx-auto p-4">
-      <Question question={questions[currentQuestion - 1]} />
+      <Question />
     </div>
-    // </QuizWrapper>
   );
-}
+};
+
+export default QuizScreenNavigator;

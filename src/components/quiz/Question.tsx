@@ -1,41 +1,49 @@
 "use client";
 
-import { Button } from "@/components/ui/button";
+import { useEffect } from "react";
 import {
+  Alert,
+  AlertDescription,
+  Button,
   Card,
   CardContent,
   CardFooter,
   CardHeader,
-} from "@/components/ui/card";
-import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
-import { Label } from "@/components/ui/label";
-// import { useQuizStore } from "../store/quiz-store";
-import { Alert, AlertDescription } from "@/components/ui/alert";
+  RadioGroup,
+  RadioGroupItem,
+  Label,
+} from "@/components/ui";
 import { CheckCircle2, XCircle } from "lucide-react";
 import type { Question as QuestionType } from "@/lib/types/quiz";
 import { useQuizStore } from "@/lib/stores/quiz-store";
-import { useEffect } from "react";
-import { questions } from "@/utils/constraints/constants/questions";
 
-type QuestionProps = {
-  question: QuestionType;
-};
+const Question = () => {
+  const {
+    answers,
+    setAnswer,
+    showSolution,
+    toggleSolution,
+    nextQuestion,
+    currentQuestion,
+    questions,
+  } = useQuizStore();
 
-const Question = ({ question }: QuestionProps) => {
-  const { answers, setAnswer, showSolution, toggleSolution, nextQuestion, currentQuestion } = useQuizStore();
+  // console.log(questions);
+
+  const question: QuestionType = questions[currentQuestion - 1];
 
   useEffect(() => {
     // Reset the answer when the question changes
-    setAnswer(question.id, -1);
-  }, [question.id, setAnswer]);
+    setAnswer(question?.id, -1);
+  }, [question?.id, setAnswer]);
 
-  const selectedAnswer = answers[question.id];
+  const selectedAnswer = answers[question?.id];
   const hasAnswered = selectedAnswer !== undefined && selectedAnswer !== -1;
 
   return (
     <Card className="max-w-2xl mx-auto">
       <CardHeader className="text-lg font-medium">
-        {question.description}
+        {question?.description}
       </CardHeader>
       <CardContent>
         <RadioGroup
@@ -45,7 +53,7 @@ const Question = ({ question }: QuestionProps) => {
           }
           className="space-y-3"
         >
-          {question.options.map((option) => {
+          {question?.options.map((option) => {
             const isSelected = selectedAnswer === option.id;
             const showCorrect = hasAnswered && option.is_correct;
             const showIncorrect =
@@ -90,16 +98,16 @@ const Question = ({ question }: QuestionProps) => {
             </AlertDescription>
           </Alert>
         )}
-        {hasAnswered && ( currentQuestion < questions.length ) ? (
+        {hasAnswered && currentQuestion < questions.length ? (
           <Button onClick={nextQuestion} className="w-full">
             Next Question
           </Button>
         ) : (
-            hasAnswered && (
-                <Button onClick={nextQuestion} className="w-full">
-                    Finish Quiz
-                </Button>
-            )
+          hasAnswered && (
+            <Button onClick={nextQuestion} className="w-full">
+              Finish Quiz
+            </Button>
+          )
         )}
       </CardFooter>
     </Card>

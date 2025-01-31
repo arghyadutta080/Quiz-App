@@ -1,14 +1,16 @@
-import { questions } from "@/utils/constraints/constants/questions"
 import { create } from "zustand"
-// import { questions } from "@/data/questions"
+import { Question } from "../types/quiz"
 
 interface QuizState {
     currentQuestion: number
     score: number
     answers: Record<number, number>
+    questions: Question[]
+    numberOfQuestions: number
     showSolution: boolean
     isStarted: boolean
     isComplete: boolean
+    setQuestions: (questions: Question[]) => void
     setAnswer: (questionId: number, answerId: number) => void
     startQuiz: () => void
     nextQuestion: () => void
@@ -24,11 +26,24 @@ export const useQuizStore = create<QuizState>((set, get) => ({
     showSolution: false,
     isStarted: false,
     isComplete: false,
+    questions: [],
+    numberOfQuestions: 0,
+
+    setQuestions: (questionSet: Question[]) => {
+        const state = get()
+        // console.log(state.questions)
+        if (state.questions.length != questionSet.length) {
+            set({
+                questions: questionSet,
+                numberOfQuestions: questionSet.length
+            })
+        }
+    },
 
     setAnswer: (questionId, answerId) =>
         set((state) => ({
             answers: { ...state.answers, [questionId]: answerId },
-            score: calculateScore(state.answers, questionId, answerId),
+            score: calculateScore(state.answers, state.questions, questionId, answerId),
         })),
 
     startQuiz: () => set({ isStarted: true, currentQuestion: 0 }),
@@ -36,7 +51,7 @@ export const useQuizStore = create<QuizState>((set, get) => ({
     nextQuestion: () => {
         const state = get()
         const nextQuestionNumber = state.currentQuestion + 1
-        if (nextQuestionNumber > questions.length) {
+        if (nextQuestionNumber > state.questions.length) {
             set({ isComplete: true })
         } else {
             set({
@@ -61,8 +76,7 @@ export const useQuizStore = create<QuizState>((set, get) => ({
     toggleSolution: () => set((state) => ({ showSolution: !state.showSolution })),
 }))
 
-const calculateScore = (answers: Record<number, number>, questionId: number, answerId: number) => {
-    console.log(answers)
+const calculateScore = (answers: Record<number, number>, questions: Question[], questionId: number, answerId: number) => {
     const updatedAnswers = { ...answers, [questionId]: answerId }
     return Object.entries(updatedAnswers).reduce((score, [qId, aId]) => {
         const question = questions.find((q) => q.id === Number.parseInt(qId))
