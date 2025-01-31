@@ -49,6 +49,8 @@ const Question = () => {
         {question?.description}
       </CardHeader>
       <CardContent>
+        
+        {/* Options */}
         <RadioGroup
           value={selectedAnswer?.toString()}
           onValueChange={(value) =>
@@ -88,6 +90,8 @@ const Question = () => {
           })}
         </RadioGroup>
       </CardContent>
+      
+      {/* Solution Explanation */}
       <CardFooter className="flex flex-col gap-4">
         {hasAnswered && (
           <Button variant="outline" onClick={toggleSolution} className="w-full">
@@ -115,6 +119,7 @@ const Question = () => {
             </AlertDescription>
           </Alert>
         )}
+        {/* Button */}
         {hasAnswered && currentQuestion < questions.length ? (
           <Button onClick={nextQuestion} className="w-full">
             Next Question
