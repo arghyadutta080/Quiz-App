@@ -16,7 +16,7 @@ import Image from "next/image";
 const StartScreen = () => {
   const { startQuiz, setQuestions } = useQuizStore();
 
-  const { data, isLoading, isError, error, isFetched, isFetching } = useQuery({
+  const { data, isLoading, isError, error, isFetched } = useQuery({
     queryKey: ["questions"],
     queryFn: fetchQuizResponse,
     staleTime: 1000 * 60 * 60 * 24,
@@ -48,12 +48,17 @@ const StartScreen = () => {
   }
 
   return (
-    <div className="container mx-auto max-w-md p-4">
-      <Card className="bg-indigo-900 text-white">
+    <div className="container mx-auto w-full lg:w-2xl max-w-3xl p-4">
+      <Card className="w-full max-w-md mx-auto bg-white/90 backdrop-blur-sm shadow-xl">
         <CardHeader>
           <div className="flex items-center justify-between">
-            {/* <img src="/placeholder.svg" alt="Logo" className="h-8" /> */}
-            <Image src={`/assests/logo.jpg`} alt="Logo" height={10} width={50} className="h-12 rounded-md"/>
+            <Image
+              src={`/assests/logo.png`}
+              alt="Logo"
+              height={100}
+              width={100}
+              className="h-20 rounded-md"
+            />
             <div className="flex items-center gap-2">
               <span className="flex items-center gap-1">🔥 1</span>
               <span className="flex items-center gap-1">🏆 1</span>
@@ -61,16 +66,18 @@ const StartScreen = () => {
             </div>
           </div>
         </CardHeader>
-        <CardContent className="space-y-4">
+        <CardContent className="space-y-8">
           <div className="text-center space-y-2">
-            <CardTitle className="text-2xl">Pre Exam Test</CardTitle>
-            <CardTitle className="text-base">
+            <CardTitle className="text-2xl md:text-3xl text-indigo-800">
+              Pre Exam Test
+            </CardTitle>
+            <CardTitle className="text-lg md:text-2xl text-indigo-800">
               Topic: {isLoading ? "Loading..." : data?.topic}
             </CardTitle>
-            <CardTitle className="text-base">
+            <CardTitle className="text-lg md:text-2xl text-indigo-800">
               Title: {isLoading ? "Loading..." : data?.title}
             </CardTitle>
-            <div className="flex justify-center items-center gap-4 text-sm">
+            <div className="flex justify-center items-center gap-4 text-xl text-indigo-600">
               <div className="flex items-center gap-1">
                 <Clock className="w-4 h-4" />
                 {isLoading ? 0 : data?.duration} Minutes
@@ -82,7 +89,7 @@ const StartScreen = () => {
             </div>
           </div>
           <Button
-            className="w-full bg-teal-500 hover:bg-teal-600"
+            className="w-full bg-indigo-600 hover:bg-indigo-700 text-white"
             onClick={startQuiz}
           >
             START

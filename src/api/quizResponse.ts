@@ -1,4 +1,4 @@
-import { QuizApiResponse } from "@/lib/types/quiz";
+import { QuizApiResponse } from "@/lib/types/quizApiResponse";
 
 export const fetchQuizResponse = async (): Promise<QuizApiResponse> => {
     const url = '/api/proxy';

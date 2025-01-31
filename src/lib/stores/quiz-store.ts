@@ -1,26 +1,6 @@
 import { create } from "zustand"
-import { Question } from "../types/quiz"
-
-interface QuizState {
-    currentQuestion: number
-    correctAnsMarks: number
-    negativeMarks: number
-    score: number
-    answers: Record<number, number>
-    questions: Question[]
-    numberOfQuestions: number
-    showSolution: boolean
-    isStarted: boolean
-    isComplete: boolean
-    allowSuffle: boolean
-    setQuestions: (questions: Question[], correctPoints: number, negativePoints: number, suffling: boolean) => void
-    setAnswer: (questionId: number, answerId: number) => void
-    startQuiz: () => void
-    nextQuestion: () => void
-    completeQuiz: () => void
-    resetQuiz: () => void
-    toggleSolution: () => void
-}
+import { Question, QuizState } from "../types"
+import { calculateScore } from "@/utils/functions"
 
 export const useQuizStore = create<QuizState>((set, get) => ({
     currentQuestion: 0,
@@ -39,11 +19,11 @@ export const useQuizStore = create<QuizState>((set, get) => ({
         const state = get()
         if (state.questions.length != questionSet.length) {
             set({ allowSuffle: suffling })
-            
-            const finalQuestions = state.allowSuffle 
+
+            const finalQuestions = state.allowSuffle
                 ? [...questionSet].sort(() => Math.random() - 0.5)  // suffling the questions
                 : questionSet;
-                
+
             set({
                 questions: finalQuestions,
                 numberOfQuestions: questionSet.length,
@@ -89,11 +69,4 @@ export const useQuizStore = create<QuizState>((set, get) => ({
     toggleSolution: () => set((state) => ({ showSolution: !state.showSolution })),
 }))
 
-const calculateScore = (answers: Record<number, number>, questions: Question[], questionId: number, answerId: number, correctAnsMarks: number, negativeMarks: number) => {
-    const updatedAnswers = { ...answers, [questionId]: answerId }
-    return Object.entries(updatedAnswers).reduce((score, [qId, aId]) => {
-        const question = questions.find((q) => q.id === Number.parseInt(qId))
-        const isCorrect = question?.options.find((o) => o.id === aId)?.is_correct
-        return score + (isCorrect ? correctAnsMarks : - negativeMarks)
-    }, 0)
-}
+

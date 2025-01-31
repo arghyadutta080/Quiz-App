@@ -14,7 +14,7 @@ import {
   Label,
 } from "@/components/ui";
 import { CheckCircle2, XCircle } from "lucide-react";
-import type { Question as QuestionType } from "@/lib/types/quiz";
+import type { Question as QuestionType } from "@/lib/types/quizApiResponse";
 import { useQuizStore } from "@/lib/stores/quiz-store";
 import { formatAPIText, formatterStyles } from "@/utils/functions/formatText";
 
@@ -44,8 +44,8 @@ const Question = () => {
   const { html, success, error } = formatAPIText(question?.detailed_solution);
 
   return (
-    <Card className="max-w-2xl mx-auto">
-      <CardHeader className="text-lg font-medium">
+    <Card className="w-full max-w-2xl lg:w-[42rem] bg-white/90 backdrop-blur-sm shadow-xl">
+      <CardHeader className="text-lg font-medium w-full">
         {question?.description}
       </CardHeader>
       <CardContent>
@@ -66,10 +66,10 @@ const Question = () => {
               <div
                 key={option.id}
                 className={`
-                  flex items-center space-x-2 rounded-lg border p-4 transition-colors
-                  ${showCorrect ? "bg-green-100 border-green-500" : ""}
-                  ${showIncorrect ? "bg-red-100 border-red-500" : ""}
-                `}
+            flex items-center space-x-2 rounded-lg border-2 p-4 transition-colors
+            ${showCorrect ? "bg-green-100 border-green-500" : ""}
+            ${showIncorrect ? "bg-red-100 border-red-500" : ""}
+          `}
               >
                 <RadioGroupItem
                   value={option.id.toString()}
