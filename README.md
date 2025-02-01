@@ -48,6 +48,9 @@ npm install
 
 # Start the development server
 npm run dev 
+
+# set environment variable
+NEXT_PUBLIC_SERVER_API_URI = <API_URI>
 ```
 
 ---
