@@ -14,20 +14,21 @@ This project is a **Next.js 14 application** that efficiently handles **SSR, cac
 
 ## User Interface
 
-### Start Screen
-![Start Screen](https://i.postimg.cc/fbfL22S8/Screenshot-98.png)
+### Quiz Flow Screenshots
+<div style="display: flex; justify-content: space-between; margin-bottom: 20px;">
+  <img src="https://i.postimg.cc/fbfL22S8/Screenshot-98.png" alt="Start Screen" width="48%"/>
+  <img src="https://i.postimg.cc/P5ZNZrXs/Screenshot-100.png" alt="Quiz Interface" width="48%"/>
+</div>
 
-### Quiz Interface
-![Quiz Interface](https://i.postimg.cc/P5ZNZrXs/Screenshot-100.png)
+<div style="display: flex; justify-content: space-between; margin-bottom: 20px;">
+  <img src="https://i.postimg.cc/vHCcc6dt/Screenshot-99.png" alt="Quiz Interface - After" width="48%"/>
+  <img src="https://i.postimg.cc/2SYkgpRn/image.png" alt="Detailed Results" width="48%"/>
+</div>
 
-### Quiz Interface - After attending the Question
-![Quiz Interface](https://i.postimg.cc/vHCcc6dt/Screenshot-99.png)
-
-### Detailed Results
-![Detailed Results](https://i.postimg.cc/FHV527Nx/Screenshot-2025-02-01-221058.png)
-
-### Performance Statistics
-![Performance](https://i.postimg.cc/J4JW5pFv/Screenshot-2025-02-01-022750.png)
+<div style="display: flex; justify-content: space-between; margin-bottom: 20px;">
+  <img src="https://i.postimg.cc/bNx8x6Dr/image.png" alt="Quiz Interface - After" width="48%"/>
+  <img src="https://i.postimg.cc/J4JW5pFv/Screenshot-2025-02-01-022750.png" alt="Detailed Results" width="48%"/>
+</div>
 
 ---
 
