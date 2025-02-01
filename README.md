@@ -24,7 +24,11 @@ This project is a **Next.js 14 application** that efficiently handles **SSR, cac
 ![Quiz Interface](https://i.postimg.cc/vHCcc6dt/Screenshot-99.png)
 
 ### Detailed Results
-![Detailed Results](https://i.postimg.cc/JhL0QV0y/Screenshot-101.png)
+![Detailed Results](https://i.postimg.cc/FHV527Nx/Screenshot-2025-02-01-221058.png)
+
+### Performance Statistics
+![Performance](https://i.postimg.cc/J4JW5pFv/Screenshot-2025-02-01-022750.png)
+
 ---
 
 ## 2. Installation & Setup
