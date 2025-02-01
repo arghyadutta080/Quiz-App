@@ -10,7 +10,7 @@ This project is a **Next.js 14 application** that efficiently handles **SSR, cac
 - **Optimized Quiz Flow**: Handles quiz responses, countdown timers, and UI updates dynamically.
 
   ## Project Demo
-[![Project Demo Video](https://i.postimg.cc/fbfL22S8/Screenshot-98.png)](https://youtu.be/FAVI8C1tNB4)
+[![Project Demo Video](https://i.postimg.cc/JzFTG8rk/image.png)](https://youtu.be/FAVI8C1tNB4)
 
 ## User Interface
 
