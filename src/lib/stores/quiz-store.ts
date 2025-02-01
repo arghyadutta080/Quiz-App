@@ -1,6 +1,6 @@
 import { create } from "zustand"
 import { Question, QuizState } from "../types"
-import { calculateScore } from "@/utils/functions"
+import { calculateCorrectAnsCount, calculateScore } from "@/utils/functions"
 
 export const useQuizStore = create<QuizState>((set, get) => ({
     currentQuestion: 0,
@@ -37,7 +37,8 @@ export const useQuizStore = create<QuizState>((set, get) => ({
     setAnswer: (questionId, answerId) =>
         set((state) => ({
             answers: { ...state.answers, [questionId]: answerId },
-            score: calculateScore(set, state.answers, state.questions, questionId, answerId, state.correctAnsMarks, state.negativeMarks),
+            score: calculateScore(state.answers, state.questions, questionId, answerId, state.correctAnsMarks, state.negativeMarks),
+            correctAnsCount: calculateCorrectAnsCount(state.answers, state.questions),
         })),
 
     startQuiz: () => set({ isStarted: true, currentQuestion: 0 }),

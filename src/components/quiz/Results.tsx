@@ -13,6 +13,8 @@ const Results = () => {
   const { score, numberOfQuestions, correctAnsCount, resetQuiz } =
     useQuizStore();
 
+    console.log(score, correctAnsCount)
+
   return (
     <Card className="max-w-md mx-auto text-center">
       <CardHeader>
