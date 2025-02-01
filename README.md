@@ -9,6 +9,22 @@ This project is a **Next.js 14 application** that efficiently handles **SSR, cac
 - **React Query Hydration**: Prefetches API responses on the server & hydrates them on the client.
 - **Optimized Quiz Flow**: Handles quiz responses, countdown timers, and UI updates dynamically.
 
+  ## Project Demo
+[![Project Demo Video](https://i.postimg.cc/fbfL22S8/Screenshot-98.png)](https://youtu.be/FAVI8C1tNB4)
+
+## User Interface
+
+### Start Screen
+![Start Screen](https://i.postimg.cc/fbfL22S8/Screenshot-98.png)
+
+### Quiz Interface
+![Quiz Interface](https://i.postimg.cc/P5ZNZrXs/Screenshot-100.png)
+
+### Quiz Interface - After attending the Question
+![Quiz Interface](https://i.postimg.cc/vHCcc6dt/Screenshot-99.png)
+
+### Detailed Results
+![Detailed Results](https://i.postimg.cc/JhL0QV0y/Screenshot-101.png)
 ---
 
 ## 2. Installation & Setup
