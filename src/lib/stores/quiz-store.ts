@@ -12,6 +12,7 @@ export const useQuizStore = create<QuizState>((set, get) => ({
     isStarted: false,
     isComplete: false,
     questions: [],
+    correctAnsCount: 0,
     numberOfQuestions: 0,
     allowSuffle: true,
 
@@ -36,7 +37,7 @@ export const useQuizStore = create<QuizState>((set, get) => ({
     setAnswer: (questionId, answerId) =>
         set((state) => ({
             answers: { ...state.answers, [questionId]: answerId },
-            score: calculateScore(state.answers, state.questions, questionId, answerId, state.correctAnsMarks, state.negativeMarks),
+            score: calculateScore(set, state.answers, state.questions, questionId, answerId, state.correctAnsMarks, state.negativeMarks),
         })),
 
     startQuiz: () => set({ isStarted: true, currentQuestion: 0 }),

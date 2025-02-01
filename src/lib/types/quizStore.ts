@@ -8,6 +8,7 @@ export interface QuizState {
     answers: Record<number, number>
     questions: Question[]
     numberOfQuestions: number
+    correctAnsCount: number
     showSolution: boolean
     isStarted: boolean
     isComplete: boolean

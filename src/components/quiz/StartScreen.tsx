@@ -87,6 +87,14 @@ const StartScreen = () => {
                 {isLoading ? 0 : data?.questions_count} Questions
               </div>
             </div>
+            <div className="flex flex-col justify-center items-center gap-1 text-base text-indigo-600">
+              <div className="flex items-center gap-1">
+                +{isLoading ? 0 : data?.correct_answer_marks} For each correct answer
+              </div>
+              <div className="flex items-center gap-1">
+                -{isLoading ? 0 : data?.negative_marks} For each wrong answer
+              </div>
+            </div>
           </div>
           <Button
             className="w-full bg-indigo-600 hover:bg-indigo-700 text-white"

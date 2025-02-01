@@ -10,7 +10,7 @@ import { useQuizStore } from "@/lib/stores/quiz-store";
 import { Share2 } from "lucide-react";
 
 const Results = () => {
-  const { score, numberOfQuestions, correctAnsMarks, resetQuiz } =
+  const { score, numberOfQuestions, correctAnsCount, resetQuiz } =
     useQuizStore();
 
   return (
@@ -30,7 +30,7 @@ const Results = () => {
       <CardContent className="grid grid-cols-3 gap-4">
         <div className="bg-purple-100 rounded-lg p-4">
           <div className="text-2xl font-bold text-purple-600">
-            {(score * 100) / (numberOfQuestions * correctAnsMarks)}%
+            {(correctAnsCount * 100) / numberOfQuestions}%
           </div>
           <div className="text-sm text-purple-600">Accuracy</div>
         </div>
